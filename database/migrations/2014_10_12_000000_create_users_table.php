@@ -14,9 +14,28 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('username')->nullable();
             $table->string('email')->unique();
+            $table->boolean('email_verified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('photo')->nullable();
+            $table->string('phone')->nullable();
+            $table->boolean('phone_verified')->default(false);
+            $table->string('address')->nullable();
+            $table->string('company')->nullable();
+            $table->string('company_site')->nullable();
+            $table->string('country')->nullable();
+            $table->string('currency')->nullable();
+            $table->string('language')->nullable();
+            $table->boolean('allow_changes')->default(false);
+            $table->enum('role', ['super_admin',
+            'supply_chain_manager',
+            'warehouse_operator',
+            'sales_manager',
+            'regional_sales_manager',
+            'regional_manager'])->default('regional_sales_manager');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->rememberToken();
             $table->timestamps();
         });

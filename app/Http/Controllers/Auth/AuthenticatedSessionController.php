@@ -25,11 +25,34 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if($request->user()->role === 'super_admin') {
+            if($request->user()->status === 'active') {
+                $url = 'admin';
+                notify()->success('Successfully logged in.', 'Success');
+            } else {
+                notify()->error('Your account has been deactivated! Please contact the system admin.', 'Inactive account');
+                $url = '/login';
+                Auth::guard('web')->logout();
+                return redirect($url);
+            }
+        } elseif($request->user()->role === 'supply_chain_manager') {
+            $url = 'supply_chain';
+        } elseif($request->user()->role === 'warehouse_operator') {
+            $url = 'warehouse';
+        } elseif($request->user()->role === 'sales_manager') {
+            $url = 'sales';
+        } elseif($request->user()->role === 'regional_sales_manager') {
+            $url = 'regional_sales';
+        } elseif($request->user()->role === 'regional_manager') {
+            $url = 'regional';
+        }
+
+        return redirect()->intended($url);
     }
 
     /**
@@ -43,6 +66,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }
