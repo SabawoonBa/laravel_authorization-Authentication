@@ -510,7 +510,7 @@
                     <!--begin::Label-->
                     <div class="col-lg-8 d-flex align-items-center">
                         <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-                            <input class="form-check-input w-45px h-30px" type="checkbox" id="allowmarketing" name="allowchanges" checked="{{ $user->allow_changes === true ? 'checked' : ''}}">
+                            <input class="form-check-input w-45px h-30px" type="checkbox" id="allowmarketing" name="allowchanges" checked="{{ $user->allow_changes == true ? 'checked' : ''}}">
                             <label class="form-check-label" for="allowmarketing"></label>
                         </div>
                     </div>

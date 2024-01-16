@@ -119,7 +119,7 @@
                         <!--begin::Label-->
                         <!--begin::Label-->
                         <div class="col-lg-8">
-                            @if ($user->allow_changes === true)
+                            @if ($user->allow_changes == true)
                             <span class="fw-semibold fs-6 text-gray-800">Yes</span>
                             @else
                             <span class="fw-semibold fs-6 text-gray-800">No</span>
